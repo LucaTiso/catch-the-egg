@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float eggLowerLimit;
 
+    [SerializeField]
+    private float gravityIncrement;
+
     void Start()
     {
         this.score = 0;
@@ -87,7 +90,7 @@ public class GameManager : MonoBehaviour
         eggRigidbody.velocity = Vector3.zero;
         eggRigidbody.transform.eulerAngles = Vector3.zero;
         eggRigidbody.transform.position = new Vector3(GenerateSpawnPoint(), eggSpawnHeight, 0);
-        eggRigidbody.gravityScale += 0.1f;
+        eggRigidbody.gravityScale += gravityIncrement;
 
     }
 

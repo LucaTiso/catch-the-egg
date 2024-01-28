@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CestinoController : MonoBehaviour
 {
@@ -8,15 +9,23 @@ public class CestinoController : MonoBehaviour
     [SerializeField]
     private GameManager gameManager;
 
+    [SerializeField]
+    private Rigidbody2D rb;
+
+    private float xTarget=0f;
+
     void Update()
     {
 
         Vector3 mousePositionWorld = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        float xTarget = mousePositionWorld.x > gameManager.RightBound ? gameManager.RightBound : mousePositionWorld.x < gameManager.LeftBound ? gameManager.LeftBound: mousePositionWorld.x;
+        xTarget = mousePositionWorld.x > gameManager.RightBound ? gameManager.RightBound : mousePositionWorld.x < gameManager.LeftBound ? gameManager.LeftBound: mousePositionWorld.x;
+    }
 
-        transform.position = new Vector3(xTarget, transform.position.y, transform.position.z);
-
+    private void FixedUpdate()
+    {
+        
+        rb.MovePosition(new Vector2(xTarget,transform.position.y));
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
